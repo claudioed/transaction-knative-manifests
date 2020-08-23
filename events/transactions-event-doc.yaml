@@ -1,0 +1,11 @@
+apiVersion: eventing.knative.dev/v1
+kind: EventType
+metadata:
+  name: tech-claudioed-transaction-doc-create
+  generateName: tech-claudioed-transaction-doc-create-
+spec:
+  type: tech.claudioed.transaction.doc.create
+  source: tech.claudioed.transaction.file
+  schema:
+  description: An event that means that a transaction with type doc was created
+  broker: transactions-broker

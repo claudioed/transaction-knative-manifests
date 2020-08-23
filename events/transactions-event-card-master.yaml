@@ -1,0 +1,11 @@
+apiVersion: eventing.knative.dev/v1
+kind: EventType
+metadata:
+  name: tech-claudioed-transaction-card-master-create
+  generateName: tech-claudioed-transaction-card-master-create-
+spec:
+  type: tech.claudioed.transaction.card.master.create
+  source: tech.claudioed.transaction.file
+  schema:
+  description: An event that means that a transaction with type card master was created
+  broker: transactions-broker

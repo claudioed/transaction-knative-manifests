@@ -1,0 +1,15 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: transactions-card-visa-trigger
+spec:
+  broker: transactions-broker
+  filter:
+    attributes:
+      type: tech.claudioed.transaction.card.visa.create
+      source: tech.claudioed.transaction.file
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: transactions-card-visa-service

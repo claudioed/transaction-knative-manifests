@@ -1,0 +1,11 @@
+apiVersion: eventing.knative.dev/v1
+kind: EventType
+metadata:
+  name: tech-claudioed-transaction-ted-create
+  generateName: tech-claudioed-transaction-ted-create-
+spec:
+  type: tech.claudioed.transaction.ted.create
+  source: tech.claudioed.transaction.file
+  schema:
+  description: An event that means that a transaction with type ted was created
+  broker: transactions-broker
