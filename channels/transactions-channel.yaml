@@ -5,4 +5,4 @@ metadata:
 spec:
   channelTemplate:
     apiVersion: messaging.knative.dev/v1
-    kind: IngotyMemoryChannel
+    kind: InMemoryChannel

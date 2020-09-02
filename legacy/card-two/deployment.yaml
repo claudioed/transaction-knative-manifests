@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    version: v1
+    app: card-two
+  name: card-two
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: card-two
+  template:
+    metadata:
+      labels:
+        app: card-two
+        version: v1
+    spec:
+      containers:
+        - image: claudioed/card-two
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "700m"
+            limits:
+              memory: "512Mi"
+              cpu: "900m"
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 4
+          name: card-two
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 4
