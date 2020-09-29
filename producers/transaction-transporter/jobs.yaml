@@ -1,0 +1,27 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: transaction-file-transporter
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: file-transporter
+              image: claudioed/transaction-file-transporter
+              imagePullPolicy: Always
+              env:
+                - name: FILE_PATH
+                  value: /tmp/transactions.txt
+                - name: BROKER_URL
+                  value: "http://broker-ingress.knative-eventing.svc.cluster.local/transactions/transactions-broker"
+              volumeMounts:
+                - name: transaction-file-storage
+                  mountPath: /tmp
+          restartPolicy: OnFailure
+          volumes:
+            - name: transaction-file-storage
+              persistentVolumeClaim:
+                claimName: transaction-file-storage

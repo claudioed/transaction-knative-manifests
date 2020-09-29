@@ -4,6 +4,23 @@ metadata:
   name: transactions-card-master-service
 spec:
   template:
+    metadata:
+      name: transactions-card-master-service-v1
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+        autoscaling.knative.dev/maxScale: "3"
+        autoscaling.knative.dev/target: "10"
     spec:
       containers:
-        - image: claudioed/transactions-card-visa-service
+        - image: claudioed/transactions-card-master-service
+          env:
+            - name: DATASOURCE_URL
+              value: "jdbc:postgresql://postgres-postgresql.database.svc.cluster.local:5432/postgres"
+            - name: DATASOURCE_USER
+              value: "postgres"
+            - name: DATASOURCE_PASS
+              value: "mysecretpassword"
+          ports:
+            - name: http1
+              containerPort: 8080
+              protocol: TCP

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: card-visa-display
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: card-visa-display
+  template:
+    metadata:
+      labels:
+        app: card-visa-display
+    spec:
+      containers:
+        - name: event-display
+          # Source code: https://github.com/knative/eventing-contrib/tree/master/cmd/event_display
+          image: gcr.io/knative-releases/knative.dev/eventing-contrib/cmd/event_display
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: card-visa-display
+spec:
+  selector:
+    app: card-visa-display
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

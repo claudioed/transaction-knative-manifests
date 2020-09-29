@@ -4,6 +4,19 @@ metadata:
   name: transactions-card-visa-service
 spec:
   template:
+    metadata:
+      name: transactions-card-visa-service-v1
+      annotations:
+        autoscaling.knative.dev/maxScale: "3"
+        autoscaling.knative.dev/target:   "1"
     spec:
       containers:
-        - image: claudioed/transactions-card-visa-service
+        - image: claudioed/transaction-card-visa
+          imagePullPolicy: Always
+          env:
+            - name: SERVICE_PORT
+              value: "8080"
+            - name: BROKER_URL
+              value: "dds"
+            - name: LEGACY_CARD
+              value: "ddd"

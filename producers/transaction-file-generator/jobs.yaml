@@ -1,0 +1,30 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: transaction-file-generator
+spec:
+  schedule: "*/4 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: batch-file
+              image: claudioed/transaction-file-generator
+              env:
+                - name: FROM_ACCOUNT
+                  value: "10"
+                - name: TO_ACCOUNT
+                  value: "100"
+                - name: OUT_FOLDER
+                  value: /tmp/
+                - name: FILE_NAME
+                  value: transactions
+              volumeMounts:
+                - name: transaction-file-storage
+                  mountPath: /tmp
+          restartPolicy: OnFailure
+          volumes:
+            - name: transaction-file-storage
+              persistentVolumeClaim:
+                claimName: transaction-file-storage
