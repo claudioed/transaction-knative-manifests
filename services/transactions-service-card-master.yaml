@@ -7,7 +7,6 @@ spec:
     metadata:
       name: transactions-card-master-service-v1
       annotations:
-        autoscaling.knative.dev/minScale: "1"
         autoscaling.knative.dev/maxScale: "3"
         autoscaling.knative.dev/target: "10"
     spec:

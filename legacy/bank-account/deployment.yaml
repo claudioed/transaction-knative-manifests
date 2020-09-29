@@ -3,21 +3,21 @@ kind: Deployment
 metadata:
   labels:
     version: v1
-    app: card-one
-  name: card-one
+    app: bank-account
+  name: bank-account
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: card-one
+      app: bank-account
   template:
     metadata:
       labels:
-        app: card-one
+        app: bank-account
         version: v1
     spec:
       containers:
-        - image: claudioed/card-one
+        - image: claudioed/bank-account
           imagePullPolicy: Always
           resources:
             requests:
@@ -29,17 +29,17 @@ spec:
           livenessProbe:
             httpGet:
               path: /health/live
-              port: 8080
+              port: 9090
               scheme: HTTP
-            initialDelaySeconds: 10
-          name: card-one
+            initialDelaySeconds: 4
+          name: bank-account
           ports:
-            - containerPort: 8080
+            - containerPort: 9090
               name: http
               protocol: TCP
           readinessProbe:
             httpGet:
               path: /health/ready
-              port: 8080
+              port: 9090
               scheme: HTTP
-            initialDelaySeconds: 10
+            initialDelaySeconds: 4
