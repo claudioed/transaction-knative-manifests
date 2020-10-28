@@ -7,14 +7,14 @@ spec:
     metadata:
       name: transactions-card-master-service-v1
       annotations:
-        autoscaling.knative.dev/maxScale: "3"
+        autoscaling.knative.dev/maxScale: "1"
         autoscaling.knative.dev/target: "10"
     spec:
       containers:
         - image: claudioed/transactions-card-master-service
           env:
             - name: DATASOURCE_URL
-              value: "jdbc:postgresql://postgres-postgresql.database.svc.cluster.local:5432/postgres"
+              value: "jdbc:postgresql://postgresql.database.svc.cluster.local:5432/postgres"
             - name: DATASOURCE_USER
               value: "postgres"
             - name: DATASOURCE_PASS

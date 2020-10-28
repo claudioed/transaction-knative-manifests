@@ -7,7 +7,7 @@ spec:
     metadata:
       name: transactions-card-visa-service-v1
       annotations:
-        autoscaling.knative.dev/maxScale: "3"
+        autoscaling.knative.dev/maxScale: "1"
         autoscaling.knative.dev/target:   "1"
     spec:
       containers:
@@ -17,6 +17,18 @@ spec:
             - name: SERVICE_PORT
               value: "8080"
             - name: BROKER_URL
-              value: "dds"
+              value: "http://broker-ingress.knative-eventing.svc.cluster.local/transactions/transactions-broker"
             - name: LEGACY_CARD
-              value: "ddd"
+              value: "card-two.legacy.svc.cluster.local:8080"
+            - name: DB_USER
+              value: "postgres"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_HOST
+              value: "postgresql.database.svc.cluster.local"
+            - name: DB_DATABASE
+              value: "postgres"
+            - name: DB_PASS
+              value: "mysecretpassword"
+            - name: DB_USER
+              value: "postgres"

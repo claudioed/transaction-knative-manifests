@@ -42,6 +42,8 @@ kubectl apply --filename https://github.com/knative/eventing/releases/download/v
 
 sleep 3
 
+kubectl create ns transactions
+
 kubectl apply --filename ../channels/transactions-channel.yaml -n transactions
 kubectl apply --filename ../broker/transactions-broker.yaml -n transactions
 kubectl apply --filename ../namespace/transaction-namespace.yaml -n transactions
